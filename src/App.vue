@@ -1,12 +1,12 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-07 17:20:08
+ * @LastEditTime: 2022-02-07 23:44:49
  * @Description: 首页
 -->
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <HelloWorld msg="欢迎来到我的毕业设计" />
 </template>
 
 <script lang="ts">
