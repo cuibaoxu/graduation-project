@@ -1,12 +1,12 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-08 02:05:44
+ * @LastEditTime: 2022-02-08 02:09:18
  * @Description: 首页
 -->
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="测试SSH" />
+  <HelloWorld msg="欢迎来到我的毕业设计" />
 </template>
 
 <script lang="ts">
