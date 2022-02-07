@@ -1,12 +1,12 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-08 02:09:18
+ * @LastEditTime: 2022-02-08 02:11:26
  * @Description: 首页
 -->
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="欢迎来到我的毕业设计" />
+  <HelloWorld msg="欢迎来到我的毕业设计/这是一个分支" />
 </template>
 
 <script lang="ts">
