@@ -1,23 +1,24 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-08 02:11:26
+ * @LastEditTime: 2022-02-08 15:20:40
  * @Description: 首页
 -->
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="欢迎来到我的毕业设计/这是一个分支" />
+  <div class="app">
+    <h2>{{ $store.state.name }}</h2>
+    <router-link to="/login">登录</router-link>
+    <router-link to="/main">主页</router-link>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {}
 })
 </script>
 
