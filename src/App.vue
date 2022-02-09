@@ -1,24 +1,40 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-08 15:20:40
+ * @LastEditTime: 2022-02-08 18:20:34
  * @Description: 首页
 -->
 <template>
-  <div class="app">
+  <div id="app">
     <h2>{{ $store.state.name }}</h2>
     <router-link to="/login">登录</router-link>
     <router-link to="/main">主页</router-link>
     <router-view></router-view>
+
+    <el-button>Default</el-button>
+    <el-button type="primary">Primary</el-button>
+    <el-button type="success">Success</el-button>
+    <el-button type="info">Info</el-button>
+    <el-button type="warning">Warning</el-button>
+    <el-button type="danger">Danger</el-button>
+    <el-button>中文</el-button>
+    <el-color-picker v-model="color1" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { ref } from 'vue'
 
 export default defineComponent({
   name: 'App',
-  components: {}
+  components: {},
+  setup() {
+    let color1 = ref('#666666')
+    return {
+      color1
+    }
+  }
 })
 </script>
 
