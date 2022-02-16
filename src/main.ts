@@ -1,3 +1,8 @@
+/*
+ * @Author: cuibx
+ * @Date: 2022-02-08 16:02:18
+ * @Description: Do not edit
+ */
 import { createApp } from 'vue'
 // import ElementPlus from 'element-plus'
 // import 'element-plus/dist/index.css'
@@ -12,3 +17,6 @@ app.use(router)
 app.use(store)
 // app.use(ElementPlus)
 app.mount('#app')
+
+console.log(process.env.VUE_APP_BASE_URL)
+console.log(process.env.VUE_APP_BASE_NAME)
