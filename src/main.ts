@@ -6,7 +6,9 @@
 import { createApp } from 'vue'
 // import ElementPlus from 'element-plus'
 // import 'element-plus/dist/index.css'
-import './service/axios_demo'
+// import './service/axios_demo'
+import bxRequest from './service'
+
 import App from './App.vue'
 
 import router from './router'
@@ -20,3 +22,23 @@ app.mount('#app')
 
 console.log(process.env.VUE_APP_BASE_URL)
 console.log(process.env.VUE_APP_BASE_NAME)
+
+// bxRequest.request({
+//   url: '/home/multidata',
+//   method: 'GET',
+//   interceptors: {
+//     requsetInterceptor: (config) => {
+//       console.log('单独请求的config')
+//       return config
+//     },
+//     responseInterceptor: (res) => {
+//       console.log('单独响应的response')
+//       return res
+//     }
+//   }
+// })
+
+bxRequest.request({
+  url: '/home/multidata',
+  method: 'GET'
+})
