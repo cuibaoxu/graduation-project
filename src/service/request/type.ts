@@ -8,10 +8,11 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios'
 export interface BXRequsetInterceptors {
   requsetInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requsetInterceptorCatch?: (error: any) => any
-  responseInterceptor?: (res: AxiosResponse) => AxiosResponse
+  responseInterceptor?: (res: any) => any
   responseInterceptorCatch?: (error: any) => any
 }
 
 export interface BXRequestConfig extends AxiosRequestConfig {
   interceptors?: BXRequsetInterceptors
+  showLoading?: boolean
 }

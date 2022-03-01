@@ -5,7 +5,7 @@
  */
 import { createApp } from 'vue'
 // import ElementPlus from 'element-plus'
-// import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css'
 // import './service/axios_demo'
 import bxRequest from './service'
 
@@ -38,7 +38,19 @@ console.log(process.env.VUE_APP_BASE_NAME)
 //   }
 // })
 
-bxRequest.request({
-  url: '/home/multidata',
-  method: 'GET'
-})
+interface DataType {
+  data: any
+  returnCode: string
+  success: boolean
+}
+
+bxRequest
+  .get<DataType>({
+    url: '/home/multidata',
+    showLoading: true
+  })
+  .then((res) => {
+    console.log(res.data)
+    console.log(res.returnCode)
+    console.log(res.success)
+  })
