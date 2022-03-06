@@ -23,8 +23,9 @@ class BXRequest {
     this.instance = axios.create(config)
     // 保存基本信息
     this.showLoading = config.showLoading ?? DEFAULT_LOADING
-    // 使用拦截器
     this.interceptors = config.interceptors
+
+    // 使用拦截器
     // 从config中取出的拦截器是对应的实例的拦截器
     this.instance.interceptors.request.use(this.interceptors?.requsetInterceptor, this.interceptors?.requsetInterceptorCatch)
     this.instance.interceptors.response.use(this.interceptors?.responseInterceptor, this.interceptors?.responseInterceptorCatch)
@@ -74,7 +75,7 @@ class BXRequest {
       }
     )
   }
-  request<T>(config: BXRequestConfig): Promise<T> {
+  request<T>(config: BXRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1.单个请求对请求config的处理
       if (config.interceptors?.requsetInterceptor) {
@@ -107,19 +108,19 @@ class BXRequest {
     })
   }
 
-  get<T>(config: BXRequestConfig): Promise<T> {
+  get<T>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
 
-  post<T>(config: BXRequestConfig): Promise<T> {
+  post<T>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
 
-  patch<T>(config: BXRequestConfig): Promise<T> {
+  patch<T>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 
-  delete<T>(config: BXRequestConfig): Promise<T> {
+  delete<T>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
 }
