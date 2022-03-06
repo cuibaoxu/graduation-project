@@ -7,13 +7,25 @@ import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import { BXRequsetInterceptors, BXRequestConfig } from './type'
 
+import { configProviderContextKey, ElLoading } from 'element-plus'
+import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
+// 默认是否有loading
+const DEFAULT_LOADING = true
+
 class BXRequest {
   instance: AxiosInstance
   interceptors?: BXRequsetInterceptors
+  showLoading: boolean
+  loading?: LoadingInstance
 
   constructor(config: BXRequestConfig) {
+    // 创建axios实例
     this.instance = axios.create(config)
+    // 保存基本信息
+    this.showLoading = config.showLoading ?? DEFAULT_LOADING
     this.interceptors = config.interceptors
+
+    // 使用拦截器
     // 从config中取出的拦截器是对应的实例的拦截器
     this.instance.interceptors.request.use(this.interceptors?.requsetInterceptor, this.interceptors?.requsetInterceptorCatch)
     this.instance.interceptors.response.use(this.interceptors?.responseInterceptor, this.interceptors?.responseInterceptorCatch)
@@ -22,6 +34,14 @@ class BXRequest {
     this.instance.interceptors.request.use(
       (config) => {
         console.log('所有的实例都有的拦截器：请求成功')
+
+        if (this.showLoading) {
+          this.loading = ElLoading.service({
+            lock: true,
+            text: '拼命加载中',
+            background: 'rgba(0, 0, 0, 0.6)'
+          })
+        }
         return config
       },
       (err) => {
@@ -33,24 +53,75 @@ class BXRequest {
     this.instance.interceptors.response.use(
       (res) => {
         console.log('所有的实例都有的拦截器：响应成功')
-        return res
+        // 将loading移除
+        this.loading?.close()
+
+        const data = res.data
+        if (data.returnCode === '-1001') {
+          console.log('请求失败')
+        }
+        return data
       },
       (err) => {
+        // 将loading移除
+        this.loading?.close()
+
         console.log('所有的实例都有的拦截器：响应失败')
+        if (err.response.status === 404) {
+          // 例子：判断不同的httpErrorCode显示不同的信息
+          console.log('404错误~')
+        }
         return err
       }
     )
   }
-  request(config: BXRequestConfig): void {
-    if (config.interceptors?.requsetInterceptor) {
-      config = config.interceptors.requsetInterceptor(config)
-    }
-    this.instance.request(config).then((res) => {
-      if (config.interceptors?.responseInterceptor) {
-        res = config.interceptors.responseInterceptor(res)
+  request<T>(config: BXRequestConfig<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // 1.单个请求对请求config的处理
+      if (config.interceptors?.requsetInterceptor) {
+        config = config.interceptors.requsetInterceptor(config)
       }
-      console.log(res)
+
+      if (config.showLoading === false) {
+        this.showLoading = config.showLoading
+      }
+
+      this.instance
+        .request<any, T>(config)
+        .then((res) => {
+          // 1.单个请求对数据的处理
+          if (config.interceptors?.responseInterceptor) {
+            res = config.interceptors.responseInterceptor(res)
+          }
+          // console.log(res)
+          // 2.将showLoading设置true，这样不会影响下一个请求
+          this.showLoading = DEFAULT_LOADING
+
+          // 3.将结果resolve返回出去
+          resolve(res)
+        })
+        .catch((err) => {
+          this.showLoading = DEFAULT_LOADING
+          reject(err)
+          return err
+        })
     })
+  }
+
+  get<T>(config: BXRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'GET' })
+  }
+
+  post<T>(config: BXRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' })
+  }
+
+  patch<T>(config: BXRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' })
+  }
+
+  delete<T>(config: BXRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
   }
 }
 

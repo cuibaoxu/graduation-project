@@ -1,21 +1,42 @@
 {
   "compilerOptions": {
+    // 目标代码（ts -> js(es5/6/7)
     "target": "esnext",
+    // 目标代码需要使用的模块化方案（commonjs require/module）
     "module": "esnext",
+    // 严格检查（any）
     "strict": true,
+    // 对jsx进行怎样的处理
     "jsx": "preserve",
+    // 辅助的导入功能
     "importHelpers": true,
+    // 按照node的方式解析模块 import '/index.node'
     "moduleResolution": "node",
+    // 跳过对一些库的类型检测（axios -> 类型/lodash -> @types/lodash/第三方库）
     "skipLibCheck": true,
+    // import { Person } form 'axios'
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // 要不要生成映射文件（ts -> js）
     "sourceMap": true,
+    // 文件路径解析时，基本url
     "baseUrl": ".",
+    // 指定具体要解析使用的类型
     "types": ["webpack-env"],
+    // 路径解析
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@assets": ["src/components/*"],
+      "@components": ["src/components/*"],
+      "@store": ["src/store/*"],
+      "@service": ["src/service/*"],
+      "@router": ["src/router/*"],
+      "@view": ["src/view/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    // 可以指定在项目中可以使用哪些库的类型（proxy/Window/Document）
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    // 使用ts，当数组下标为字符串时，会报错,要配置它
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"]

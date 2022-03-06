@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 02:04:38
- * @Description: Do not edit
+ * @Description: 垫片
  */
 /* eslint-disable */
 declare module '*.vue' {
