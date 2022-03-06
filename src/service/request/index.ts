@@ -55,22 +55,11 @@ class BXRequest {
         // console.log('所有的实例都有的拦截器：响应成功')
         // 将loading移除
         this.loading?.close()
-
-        const data = res.data
-        if (data.returnCode === '-1001') {
-          // console.log('请求失败')
-        }
-        return data
+        return res.data
       },
       (err) => {
         // 将loading移除
         this.loading?.close()
-
-        // console.log('所有的实例都有的拦截器：响应失败')
-        if (err.response.status === 404) {
-          // 例子：判断不同的httpErrorCode显示不同的信息
-          // console.log('404错误~')
-        }
         return err
       }
     )

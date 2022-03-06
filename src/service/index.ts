@@ -5,6 +5,7 @@
  */
 import BXRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
 
 const bxRequest = new BXRequest({
   baseURL: BASE_URL,
@@ -12,7 +13,7 @@ const bxRequest = new BXRequest({
   interceptors: {
     requsetInterceptor: (config: any) => {
       // 携带token的拦截
-      const token = 'hfaksljdhfkjanslndfjashfjanbsjfbas'
+      const token = localCache.getCache('token')
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }

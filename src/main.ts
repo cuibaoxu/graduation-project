@@ -6,8 +6,6 @@
 import { createApp } from 'vue'
 // import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-// import './service/axios_demo'
-import bxRequest from './service'
 // 初始化样式 npm install normalize.css
 import 'normalize.css'
 import './assets/css/index.css'
@@ -16,6 +14,7 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 import * as icons from '@element-plus/icons-vue'
 
 const app = createApp(App)
@@ -24,6 +23,7 @@ Object.keys(icons).forEach((key: any) => {
 })
 app.use(router)
 app.use(store)
+setupStore()
 // app.use(ElementPlus)
 app.mount('#app')
 
@@ -44,21 +44,3 @@ app.mount('#app')
 //     }
 //   }
 // })
-
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
-
-bxRequest
-  .get<DataType>({
-    url: '/home/multidata',
-    showLoading: true
-  })
-  .then((res) => {
-    return res
-    // console.log(res.data)
-    // console.log(res.returnCode)
-    // console.log(res.success)
-  })

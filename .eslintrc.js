@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-07 15:25:24
- * @LastEditTime: 2022-02-28 14:22:51
+ * @LastEditTime: 2022-03-06 18:00:41
  * @Description: Do not edit
  */
 module.exports = {
@@ -24,6 +24,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 }

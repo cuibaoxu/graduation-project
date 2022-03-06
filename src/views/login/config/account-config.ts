@@ -4,7 +4,7 @@
  * @Description: 账号密码登录校验规则
  */
 // 密码必须由字母、数字、特殊符号组成，区分大小写
-const rule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{8,20}$/
+const rule = /^[a-zA-Z0-9]{6,}$/
 
 export const rules = {
   name: [
