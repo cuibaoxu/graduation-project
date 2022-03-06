@@ -17,19 +17,19 @@ const bxRequest = new BXRequest({
         config.headers.Authorization = `Bearer ${token}`
       }
 
-      console.log('请求成功的拦截')
+      // console.log('请求成功的拦截')
       return config
     },
     requsetInterceptorCatch: (err) => {
-      console.log('请求失败的拦截')
+      // console.log('请求失败的拦截')
       return err
     },
     responseInterceptor: (res) => {
-      console.log('响应成功的拦截')
+      // console.log('响应成功的拦截')
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log('响应成功的拦截')
+      // console.log('响应成功的拦截')
       return err
     }
   }

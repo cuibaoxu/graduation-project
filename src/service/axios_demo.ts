@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-09 10:01:28
- * @LastEditTime: 2022-03-01 16:37:07
+ * @LastEditTime: 2022-03-06 14:27:31
  * @Description: 网络层
  */
 import axios from 'axios'
@@ -59,7 +59,7 @@ axios
     headers: {} // 局部配置请求头
   })
   .then((res) => {
-    console.log(res.data)
+    // console.log(res.data)
   })
 
 // 3.post请求
@@ -71,14 +71,14 @@ axios
     }
   })
   .then((res) => {
-    console.log(res.data)
+    // console.log(res.data)
   })
 
 /*  5.axios.all -> 多个数据，一起返回 */
 axios
   .all([axios.get('/get', { params: { name: 'cuibx', age: 23 } }), axios.post('/post', { params: { name: 'wangjr', age: 27 } })])
   .then((res) => {
-    console.log(res)
+    // console.log(res)
   })
 
 /* 6.axios拦截器(身份验证，显示loading等) */
@@ -92,11 +92,11 @@ axios.interceptors.request.use(
     // 想做的操作
     // 1.给请求添加token
     // 2.isLoading的动画
-    console.log('请求成功的拦截')
+    // console.log('请求成功的拦截')
     return config
   },
   (err) => {
-    console.log('请求发生错误')
+    // console.log('请求发生错误')
     return err
   }
 )
@@ -107,11 +107,11 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
   (res) => {
-    console.log('响应成功的拦截')
+    // console.log('响应成功的拦截')
     return res
   },
   (err) => {
-    console.log('服务器响应失败')
+    // console.log('服务器响应失败')
     return err
   }
 )

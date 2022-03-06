@@ -31,7 +31,8 @@
       "@store": ["src/store/*"],
       "@service": ["src/service/*"],
       "@router": ["src/router/*"],
-      "@view": ["src/view/*"]
+      "@view": ["src/view/*"],
+      "@utils": ["src/utils/*"]
     },
     // 可以指定在项目中可以使用哪些库的类型（proxy/Window/Document）
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
