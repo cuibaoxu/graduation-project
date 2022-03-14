@@ -1,20 +1,36 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 15:17:33
- * @LastEditTime: 2022-02-08 15:21:59
+ * @LastEditTime: 2022-03-13 19:31:18
  * @Description: vuex
  */
-import { createStore } from 'vuex'
+import { createStore, Store, useStore as userVuexStore } from 'vuex'
 
-const store = createStore({
-  state: () => {
+import login from './login/login'
+
+import { IRootState, IStoreType } from './types'
+
+const store = createStore<IRootState>({
+  state() {
     return {
-      name: 'cuibx'
+      name: '',
+      age: 23
     }
   },
   mutations: {},
   getters: {},
-  actions: {}
+  actions: {},
+  modules: {
+    login
+  }
 })
+
+export const setupStore = () => {
+  store.dispatch('login/loadLocalLogin')
+}
+
+export const useStore = (): Store<IStoreType> => {
+  return userVuexStore()
+}
 
 export default store

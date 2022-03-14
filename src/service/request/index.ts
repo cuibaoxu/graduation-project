@@ -7,7 +7,7 @@ import axios from 'axios'
 import type { AxiosInstance } from 'axios'
 import { BXRequsetInterceptors, BXRequestConfig } from './type'
 
-import { configProviderContextKey, ElLoading } from 'element-plus'
+import { ElLoading } from 'element-plus'
 import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
 // 默认是否有loading
 const DEFAULT_LOADING = true
@@ -33,7 +33,7 @@ class BXRequest {
     // 添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器：请求成功')
+        // console.log('所有的实例都有的拦截器：请求成功')
 
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -45,32 +45,21 @@ class BXRequest {
         return config
       },
       (err) => {
-        console.log('所有的实例都有的拦截器：请求失败')
+        // console.log('所有的实例都有的拦截器：请求失败')
         return err
       }
     )
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例都有的拦截器：响应成功')
+        // console.log('所有的实例都有的拦截器：响应成功')
         // 将loading移除
         this.loading?.close()
-
-        const data = res.data
-        if (data.returnCode === '-1001') {
-          console.log('请求失败')
-        }
-        return data
+        return res.data
       },
       (err) => {
         // 将loading移除
         this.loading?.close()
-
-        console.log('所有的实例都有的拦截器：响应失败')
-        if (err.response.status === 404) {
-          // 例子：判断不同的httpErrorCode显示不同的信息
-          console.log('404错误~')
-        }
         return err
       }
     )

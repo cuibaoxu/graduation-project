@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-09 11:29:13
- * @LastEditTime: 2022-02-28 15:59:59
+ * @LastEditTime: 2022-03-06 18:13:09
  * @Description: 环境配置文件
  */
 
@@ -23,7 +23,7 @@ let BASE_URL = ''
 const TIME_OUT = 10000
 
 if (process.env.NODE_ENV === 'development') {
-  BASE_URL = 'http://123.207.32.32:8000/'
+  BASE_URL = '/api'
 } else if (process.env.NODE_ENV === 'production') {
   BASE_URL = 'http://cuibx.org/prod'
 } else {
