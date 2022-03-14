@@ -1,8 +1,8 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 14:47:41
- * @LastEditTime: 2022-03-06 22:52:17
- * @Description: router
+ * @LastEditTime: 2022-03-15 00:17:38
+ * @Description: 路由配置
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 // 路由类型

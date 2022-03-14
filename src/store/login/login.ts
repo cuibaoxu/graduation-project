@@ -64,17 +64,13 @@ const loginMoudle: Module<ILoginState, IRootState> = {
     // 免登录时将localstorang里的数据写入到vuex里
     loadLocalLogin({ commit }) {
       const token = localCache.getCache('token')
-      if (token) {
-        commit('changeToken', token)
-      }
+      token && commit('changeToken', token)
+
       const userInfo = localCache.getCache('userInfo')
-      if (userInfo) {
-        commit('changeUserInfo', userInfo)
-      }
+      userInfo && commit('changeUserInfo', userInfo)
+
       const userMenus = localCache.getCache('userMenus')
-      if (userMenus) {
-        commit('changeUserMenus', userMenus)
-      }
+      userMenus && commit('changeUserMenus', userMenus)
     }
   }
 }

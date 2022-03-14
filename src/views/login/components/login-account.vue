@@ -36,6 +36,7 @@ export default defineComponent({
     const formRef = ref<InstanceType<typeof ElForm>>()
 
     const loginAction = (isKeepPassword: boolean) => {
+      // validate -> 表单验证方法
       formRef.value?.validate((valid) => {
         if (valid) {
           // 1.是否记住密码

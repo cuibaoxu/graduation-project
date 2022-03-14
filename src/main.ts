@@ -16,6 +16,7 @@ import router from './router'
 import store from './store'
 import { setupStore } from './store'
 import * as icons from '@element-plus/icons-vue'
+const ggIcon = icons
 
 const app = createApp(App)
 Object.keys(icons).forEach((key: any) => {
@@ -23,6 +24,7 @@ Object.keys(icons).forEach((key: any) => {
 })
 app.use(router)
 app.use(store)
+app.config.globalProperties.$icon = ggIcon
 setupStore()
 // app.use(ElementPlus)
 app.mount('#app')
