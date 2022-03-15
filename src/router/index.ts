@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 14:47:41
- * @LastEditTime: 2022-03-15 00:17:38
+ * @LastEditTime: 2022-03-15 21:44:46
  * @Description: 路由配置
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
@@ -17,11 +17,19 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/login/login.vue')
   },
   {
     path: '/main',
+    name: 'main',
     component: () => import('@/views/main/main.vue')
+    // children: [] -> 根据userMenus来决定
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 // 创建router实例
