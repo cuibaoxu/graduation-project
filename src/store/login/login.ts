@@ -8,6 +8,7 @@ import { Module } from 'vuex'
 import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } from '@/service/login/login'
 import localCache from '@/utils/cache'
 import router from '@/router/index'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 import { IAccount } from '@/service/login/type'
 import { ILoginState } from './types'
@@ -32,6 +33,14 @@ const loginMoudle: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      // userMenus => /main/children
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {},
@@ -56,7 +65,7 @@ const loginMoudle: Module<ILoginState, IRootState> = {
         localCache.setCache('userMenus', userMenus)
 
         // 4.跳转到首页
-        router.push('/mian')
+        router.push('/main')
       } catch (err: any) {
         ElMessage.error(err)
       }

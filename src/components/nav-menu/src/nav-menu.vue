@@ -29,7 +29,7 @@
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item :index="subitem.id + ''" @click="handleMenuItemClick(subitem)">
                 <component v-if="subitem.icon" :is="$icon[toUpper(subitem.icon)]" class="icon"></component>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -51,6 +51,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
+import { useRouter } from 'vue-router'
 import { iconToUpper } from '@/utils/business'
 
 // vuex - typescript -> pinia
@@ -65,11 +66,20 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
+
+    const router = useRouter()
+
+    const handleMenuItemClick = (item: any) => {
+      router.push({
+        path: item.url ?? '/not-found'
+      })
+    }
     // 动态图标兼容设置
     const toUpper = iconToUpper
     return {
       userMenus,
-      toUpper
+      toUpper,
+      handleMenuItemClick
     }
   }
 })
@@ -133,9 +143,10 @@ export default defineComponent({
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 100%;
   height: calc(100% - 48px);
-  .icon {
-    width: 1.5em;
-    margin-right: 5px;
-  }
+}
+.icon {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 5px;
 }
 </style>

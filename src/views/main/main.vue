@@ -1,7 +1,7 @@
 <!--
  * @Author: cuibx
  * @Date: 2022-02-08 14:43:05
- * @LastEditTime: 2022-03-14 23:22:49
+ * @LastEditTime: 2022-03-15 21:02:20
  * @Description: main
 -->
 <template>
@@ -16,7 +16,9 @@
         </el-header>
         <el-main class="page-content">
           <div class="content">
-            <router-view></router-view>
+            <keep-alive>
+              <router-view></router-view>
+            </keep-alive>
           </div>
         </el-main>
       </el-container>

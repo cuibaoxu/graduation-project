@@ -10,15 +10,48 @@
       <expand v-if="isFold" />
       <fold v-else />
     </el-icon>
+    <div>
+      <!-- 面包屑 -->
+      <el-breadcrumb class="content" separator="/">
+        <el-breadcrumb-item>promotion list</el-breadcrumb-item>
+        <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
+      </el-breadcrumb>
+      <!-- 用户信息 -->
+      <el-dropdown class="userInfo">
+        <el-avatar
+          class="head-portrait"
+          :size="25"
+          :src="'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"
+        />
+        <span class="el-dropdown-link">
+          {{ name }}
+          <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item :icon="'UserFilled'">用户信息</el-dropdown-item>
+            <el-dropdown-item :icon="'Switch'">切换身份</el-dropdown-item>
+            <el-dropdown-item :icon="'Key'">修改密码</el-dropdown-item>
+            <el-dropdown-item :icon="'RefreshRight'" divided>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   emits: ['foldChange'],
   setup(props, { emit }) {
+    const store = useStore()
+    const name = computed(() => store.state.login.userInfo.name)
+
     const isFold = ref(false)
     const handleFoldClick = () => {
       isFold.value = !isFold.value
@@ -26,17 +59,53 @@ export default defineComponent({
     }
     return {
       handleFoldClick,
-      isFold
+      isFold,
+      name
     }
   }
 })
 </script>
 
+<style>
+.example-showcase .el-dropdown-link {
+  cursor: pointer;
+  color: var(--el-color-primary);
+  display: flex;
+  align-items: center;
+}
+.el-dropdown-link {
+  vertical-align: super;
+  cursor: pointer;
+}
+</style>
+
 <style lang="less" scoped>
 .nav-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
   .fold-menu {
     font-size: 30px;
     cursor: pointer;
+  }
+  div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    .content {
+      display: flex;
+      justify-content: start;
+      padding: 0px 20px;
+    }
+    .userInfo {
+      display: flex;
+      min-width: 80px;
+      justify-content: end;
+      .head-portrait {
+        margin-right: 10px;
+      }
+    }
   }
 }
 </style>
