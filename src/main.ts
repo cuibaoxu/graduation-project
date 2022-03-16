@@ -22,27 +22,12 @@ const app = createApp(App)
 Object.keys(icons).forEach((key: any) => {
   app.component(key, icons[key])
 })
+setupStore()
 app.use(router)
 app.use(store)
 app.config.globalProperties.$icon = ggIcon
-setupStore()
 // app.use(ElementPlus)
 app.mount('#app')
 
 // console.log(process.env.VUE_APP_BASE_URL)
 // console.log(process.env.VUE_APP_BASE_NAME)
-
-// bxRequest.request({
-//   url: '/home/multidata',
-//   method: 'GET',
-//   interceptors: {
-//     requsetInterceptor: (config) => {
-//       console.log('单独请求的config')
-//       return config
-//     },
-//     responseInterceptor: (res) => {
-//       console.log('单独响应的response')
-//       return res
-//     }
-//   }
-// })
