@@ -5,7 +5,7 @@
  */
 
 /**
- * 修改图标格式
+ * 修改接收的后台图标传参格式
  */
 const iconToUpper = (value: string) => {
   const str = value.split('-icon-')[1]
