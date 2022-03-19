@@ -11,7 +11,7 @@
     </div>
 
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"
@@ -49,10 +49,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { iconToUpper } from '@/utils/business'
+import { pathMapToMenu } from '@/utils/map-menus'
+// import { toRaw } from '@vue/reactivity' -> 将Proxy对象返回成真实对象
 
 // vuex - typescript -> pinia
 
@@ -64,11 +66,14 @@ export default defineComponent({
     }
   },
   setup() {
+    // store
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
-
+    // router
     const router = useRouter()
-
+    const route = useRoute()
+    const currentPath = route.path
+    // event hangle
     const handleMenuItemClick = (item: any) => {
       router.push({
         path: item.url ?? '/not-found'
@@ -76,10 +81,14 @@ export default defineComponent({
     }
     // 动态图标兼容设置
     const toUpper = iconToUpper
+    // date
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    const defaultValue = ref(menu.id + '')
     return {
       userMenus,
       toUpper,
-      handleMenuItemClick
+      handleMenuItemClick,
+      defaultValue
     }
   }
 })

@@ -1,12 +1,13 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 15:17:33
- * @LastEditTime: 2022-03-13 19:31:18
+ * @LastEditTime: 2022-03-18 16:22:01
  * @Description: vuex
  */
 import { createStore, Store, useStore as userVuexStore } from 'vuex'
 
 import login from './login/login'
+import system from './mian/system/system'
 
 import { IRootState, IStoreType } from './types'
 
@@ -21,7 +22,8 @@ const store = createStore<IRootState>({
   getters: {},
   actions: {},
   modules: {
-    login
+    login,
+    system
   }
 })
 

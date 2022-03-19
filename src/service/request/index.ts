@@ -64,7 +64,7 @@ class BXRequest {
       }
     )
   }
-  request<T>(config: BXRequestConfig<T>): Promise<T> {
+  request<T = any>(config: BXRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 1.单个请求对请求config的处理
       if (config.interceptors?.requsetInterceptor) {
@@ -82,7 +82,6 @@ class BXRequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          // console.log(res)
           // 2.将showLoading设置true，这样不会影响下一个请求
           this.showLoading = DEFAULT_LOADING
 
@@ -97,15 +96,15 @@ class BXRequest {
     })
   }
 
-  get<T>(config: BXRequestConfig<T>): Promise<T> {
+  get<T = any>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
 
-  post<T>(config: BXRequestConfig<T>): Promise<T> {
+  post<T = any>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
 
-  patch<T>(config: BXRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: BXRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 
