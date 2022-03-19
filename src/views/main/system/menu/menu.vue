@@ -1,3 +1,8 @@
+<!--
+ * @Author: cuibx
+ * @Date: 2022-03-15 00:38:00
+ * @Description: 菜单页
+-->
 <template>
   <div class="menu">
     <h2>menu</h2>
@@ -8,7 +13,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'menu',
+  name: 'Menu',
   setup() {
     return {}
   }

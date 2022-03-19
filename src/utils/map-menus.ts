@@ -3,8 +3,12 @@
  * @Date: 2022-03-15 21:49:59
  * @Description: 菜单映射path路径
  */
+import { IBreadCrumb } from '@/base-ui/breadcrumb'
 import { RouteRecordRaw } from 'vue-router'
 
+let firstMenu: any = null
+
+// 将菜单集合里的路径映射到路由上
 export const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
   const routes: RouteRecordRaw[] = []
 
@@ -29,6 +33,9 @@ export const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
       if (menu.type === 2) {
         const route = allRoutes.find((route) => route.path === menu.url)
         route && routes.push(route)
+        if (!firstMenu) {
+          firstMenu = menu
+        }
       } else {
         _recurseGetRoute(menu.children)
       }
@@ -37,3 +44,28 @@ export const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
   _recurseGetRoute(userMenus)
   return routes
 }
+
+// 返回面包屑
+export const pathMapBreadcrumbs = (userMenus: any[], currentPath: string) => {
+  const breakcrumbs: IBreadCrumb[] = []
+  pathMapToMenu(userMenus, currentPath, breakcrumbs)
+  return breakcrumbs
+}
+
+// 返回路径
+export function pathMapToMenu(userMenus: any[], currentPath: string, breadcrumb?: IBreadCrumb[]): any {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) {
+        breadcrumb?.push({ name: menu.name })
+        breadcrumb?.push({ name: findMenu.name })
+        return findMenu
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
+}
+
+export { firstMenu }

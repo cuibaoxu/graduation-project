@@ -5,6 +5,7 @@
  */
 
 import { ILoginState } from './login/types'
+import { ISystemState } from './mian/system/type'
 export interface IRootState {
   name: string
   age: number
@@ -12,6 +13,7 @@ export interface IRootState {
 
 export interface IRootWithModule {
   login: ILoginState
+  system: ISystemState
 }
 
 export type IStoreType = IRootState & IRootWithModule

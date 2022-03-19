@@ -12,10 +12,7 @@
     </el-icon>
     <div>
       <!-- 面包屑 -->
-      <el-breadcrumb class="content" separator="/">
-        <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-        <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-      </el-breadcrumb>
+      <bx-breab-crumb class="content" :breakcrumbs="breadcrumbs" />
       <!-- 用户信息 -->
       <el-dropdown class="userInfo">
         <el-avatar
@@ -45,9 +42,15 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { useStore } from '@/store'
+import BxBreabCrumb from '@/base-ui/breadcrumb'
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   emits: ['foldChange'],
+  components: {
+    BxBreabCrumb
+  },
   setup(props, { emit }) {
     const store = useStore()
     const name = computed(() => store.state.login.userInfo.name)
@@ -57,10 +60,20 @@ export default defineComponent({
       isFold.value = !isFold.value
       emit('foldChange', isFold.value)
     }
+
+    // 传递面包屑数据 -> Objext
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus
+      const route = useRoute()
+      const currentPath = route.path
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+
     return {
       handleFoldClick,
       isFold,
-      name
+      name,
+      breadcrumbs
     }
   }
 })

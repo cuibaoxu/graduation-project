@@ -1,11 +1,12 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 14:47:41
- * @LastEditTime: 2022-03-17 00:06:21
+ * @LastEditTime: 2022-03-17 17:24:26
  * @Description: 路由配置
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 // import { mapMenusToRoutes } from '@/utils/map-menus'
+import { firstMenu } from '@/utils/map-menus'
 // 路由类型
 import type { RouteRecordRaw } from 'vue-router'
 import localCache from '@/utils/cache'
@@ -52,6 +53,10 @@ router.beforeEach((to) => {
 
     if (!token) {
       return '/login'
+    }
+
+    if (to.path === '/main') {
+      return firstMenu.url
     }
   }
 })
