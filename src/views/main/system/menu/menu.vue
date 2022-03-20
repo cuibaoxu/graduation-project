@@ -5,17 +5,20 @@
 -->
 <template>
   <div class="menu">
-    <h2>menu</h2>
+    <page-table ref="pageContentRef" :contentTableConfig="contentTableConfig" pageName="menu"> </page-table>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { contentTableConfig } from './config/content.config'
+import PageTable from '@/components/page-content'
 
 export default defineComponent({
   name: 'Menu',
+  components: { PageTable },
   setup() {
-    return {}
+    return { contentTableConfig }
   }
 })
 </script>

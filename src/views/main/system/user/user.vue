@@ -6,20 +6,24 @@
 <template>
   <div class="user">
     <page-search :formConfig="formConfig" @resetBtnClick="handleResetClick" @queryBtnClick="handleQueryClick" />
-    <page-table ref="pageContentRef" :contentTableConfig="contentTableConfig" pageName="user"></page-table>
+    <page-table ref="pageContentRef" :contentTableConfig="contentTableConfig" pageName="users">
+      <template #enable="scope">
+        <el-button size="small" plain :type="USER_STETUS_ABLE[scope.row.enable]">{{ USER_STETUS[scope.row.enable] }}</el-button>
+      </template>
+    </page-table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 
 import PageSearch from '@/components/page-search'
 import PageTable from '@/components/page-content'
 
 import { formConfig } from './config/search.config'
 import { timeFormat } from '@/utils/business'
-import { USER_STETUS, USER_STETUS_ABLE } from '@/enums/user'
 import { contentTableConfig } from './config/content.config'
+import { USER_STETUS_ABLE, USER_STETUS } from '@/enums/system/user'
 
 import { usePageSearch } from '@/hook/usePageSearch'
 
@@ -35,12 +39,12 @@ export default defineComponent({
     return {
       formConfig,
       timeFormat,
-      USER_STETUS,
-      USER_STETUS_ABLE,
       contentTableConfig,
       handleResetClick,
       handleQueryClick,
-      pageContentRef
+      pageContentRef,
+      USER_STETUS_ABLE,
+      USER_STETUS
     }
   }
 })

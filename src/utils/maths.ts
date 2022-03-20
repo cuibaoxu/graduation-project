@@ -23,7 +23,18 @@ const add = (a: string | number, b: string | number, digit = 2) => {
  */
 const reduce = (a: string | number, b: string | number, digit = 2) => {
   const handle = Number(a) - Number(b)
-  return handle.toFixed(digit)
+  return Number(handle.toFixed(digit))
+}
+
+/**
+ * @description: 减法（最小返回0）
+ * @param {string} a
+ * @param {string} b
+ * @param {number} digit 保留几位小数
+ */
+const reduceZero = (a: string | number, b: string | number, digit = 2) => {
+  const handle = Number(a) - Number(b)
+  return handle <= 0 ? 0 : Number(handle.toFixed(digit))
 }
 
 /**
@@ -34,7 +45,7 @@ const reduce = (a: string | number, b: string | number, digit = 2) => {
  */
 const multiplication = (a: string | number, b: string | number, digit = 2) => {
   const handle = Number(a) * Number(b)
-  return handle.toFixed(digit)
+  return Number(handle.toFixed(digit))
 }
 
 /**
@@ -45,7 +56,7 @@ const multiplication = (a: string | number, b: string | number, digit = 2) => {
  */
 const division = (a: string | number, b: string | number, digit = 2) => {
   const handle = Number(a) / Number(b)
-  return handle.toFixed(digit)
+  return Number(handle.toFixed(digit))
 }
 
-export { add, reduce, multiplication, division }
+export { add, reduce, reduceZero, multiplication, division }
