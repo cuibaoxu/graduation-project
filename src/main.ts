@@ -16,12 +16,14 @@ import router from './router'
 import store from './store'
 import { setupStore } from './store'
 import * as icons from '@element-plus/icons-vue'
+import { globalRegister } from './global'
 const ggIcon = icons
 
 const app = createApp(App)
 Object.keys(icons).forEach((key: any) => {
   app.component(key, icons[key])
 })
+app.use(globalRegister)
 setupStore()
 app.use(router)
 app.use(store)
