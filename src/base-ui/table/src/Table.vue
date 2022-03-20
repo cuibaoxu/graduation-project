@@ -14,11 +14,11 @@
       </slot>
     </div>
 
-    <el-table :data="listData" border style="width: 100%" empty-text="暂无数据" @selection-change="handleSelectionChange">
+    <el-table :data="listData" border style="width: 100%" @selection-change="handleSelectionChange" v-bind="childrenProps">
       <el-table-column v-if="showSelectColumn" type="selection" align="center" width="50" />
       <el-table-column v-if="showIndexColumn" type="index" label="序号" align="center" width="80" />
       <template v-for="item in columns" :key="item.prop">
-        <el-table-column v-bind="item" align="center">
+        <el-table-column v-bind="item" align="center" show-overflow-tooltip>
           <template #default="scope">
             <slot :name="item.slotName" :row="scope.row">
               {{ scope.row[item.prop] }}
@@ -80,6 +80,10 @@ export default defineComponent({
     page: {
       type: Object,
       default: () => ({ currentPage: 0, pageSize: 10 })
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['selectionChange', 'update:page'],
