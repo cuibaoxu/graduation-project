@@ -16,21 +16,32 @@
               <!-- 判断输入框 -->
               <template v-if="item.type === 'input' || item.type === 'password'">
                 <el-input
-                  v-model="formDate[item.field]"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 ></el-input>
               </template>
               <!-- 判断下拉框 -->
               <template v-else-if="item.type === 'select'">
-                <el-select v-model="formDate[item.field]" :placeholder="item.placeholder" v-bind="item.otherOptions">
+                <el-select
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                >
                   <el-option v-for="option in item.options" :key="option.value" :label="option.label" :value="option.value">
                   </el-option>
                 </el-select>
               </template>
               <!-- 判断时间选择器 -->
               <template v-else-if="item.type === 'datepicker'">
-                <el-date-picker v-model="formDate[item.field]" style="width: 100%" v-bind="item.otherOptions"></el-date-picker>
+                <el-date-picker
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                  style="width: 100%"
+                  v-bind="item.otherOptions"
+                ></el-date-picker>
               </template>
             </el-form-item>
           </el-col>
@@ -44,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, watch, computed } from 'vue'
 import { IFormItem } from '../types'
 
 export default defineComponent({
@@ -82,18 +93,21 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const formDate = ref({ ...props.modelValue })
-    watch(
-      formDate,
-      (newValue) => {
-        emit('update:modelValue', newValue)
-      },
-      {
-        deep: true
-      }
-    )
+    // const formDate = ref({ ...props.modelValue })
+    // watch(
+    //   formDate,
+    //   (newValue) => {
+    //     emit('update:modelValue', newValue)
+    //   },
+    //   {
+    //     deep: true
+    //   }
+    // )
+    const handleValueChange = (value: any, field: string) => {
+      emit('update:modelValue', { ...props.modelValue, [field]: value })
+    }
     return {
-      formDate
+      handleValueChange
     }
   }
 })

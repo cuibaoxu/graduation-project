@@ -16,34 +16,28 @@ export const formConfig: IForm = {
   formItems: [
     {
       field: 'name',
-      type: 'input',
-      label: '用户名',
-      placeholder: '请输入用户名'
-    },
-    {
-      field: 'realname',
-      type: 'input',
-      label: '真实姓名',
-      placeholder: '请输入真实姓名'
-    },
-    {
-      field: 'cellphone',
-      type: 'input',
-      label: '电话号码',
-      placeholder: '请输入电话号码'
-    },
-    {
-      field: 'enable',
       type: 'select',
-      label: '用户状态',
-      placeholder: '请选择用户状态',
+      label: '角色名称',
+      placeholder: '请选择角色',
       options: [
-        { label: '启用', value: 1 },
-        { label: '禁用', value: 0 }
+        { label: '人事', value: '人事' },
+        { label: '运营', value: '运营' },
+        { label: '超级管理员', value: '超级管理员' }
       ]
     },
     {
-      field: 'createAt',
+      field: 'intro',
+      type: 'select',
+      label: '权限',
+      placeholder: '请选择权限',
+      options: [
+        { label: '人事管理', value: '人事管理' },
+        { label: '日常事务', value: '日常事务' },
+        { label: '所有权限', value: '所有权限' }
+      ]
+    },
+    {
+      field: 'creatTime',
       type: 'datepicker',
       label: '创建时间',
       otherOptions: {

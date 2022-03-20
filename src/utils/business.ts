@@ -34,4 +34,10 @@ const currentTime = (type = 'HH:mm:ss') => {
   return dayjs(new Date()).format(type)
 }
 
-export { iconToUpper, timeFormat, currentTime }
+/**
+ * 字符串首字母转化成大写
+ * @param {String} str 转化的字符串
+ */
+const toUpperCaseByFirst = (str: string) => str.replace(/^\S/, (s: string) => s.toUpperCase())
+
+export { iconToUpper, timeFormat, currentTime, toUpperCaseByFirst }

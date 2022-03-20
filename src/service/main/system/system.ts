@@ -6,9 +6,9 @@
 import bxRequest from '../../index'
 import { IDataType } from '../../types'
 
-export const getPageListData = (queryInfo: any) => {
+export const getPageListData = (pageUrl: string, queryInfo: any) => {
   return bxRequest.post<IDataType>({
-    url: '/users/list',
+    url: pageUrl,
     data: queryInfo
   })
 }
