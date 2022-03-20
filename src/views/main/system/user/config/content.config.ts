@@ -7,6 +7,7 @@
 export const contentTableConfig = {
   title: '用户列表',
   columns: [
+    { prop: 'id', label: 'id', minWidth: '100' },
     { prop: 'name', label: '用户名', minWidth: '100' },
     { prop: 'realname', label: '真实姓名', minWidth: '100' },
     { prop: 'cellphone', label: '电话号码', minWidth: '120' },
@@ -16,7 +17,7 @@ export const contentTableConfig = {
     { label: '操作', minWidth: '120', slotName: 'handler' }
   ],
   // 是否显示序号
-  showIndexColumn: true,
+  showIndexColumn: false,
   // 是否显示多选框
   showSelectColumn: true
 }

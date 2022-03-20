@@ -6,8 +6,9 @@
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
 import { ISystemState } from './type'
-import { getPageListData } from '@/service/main/system/system'
+import { getPageListData, deletePageDataById } from '@/service/main/system/system'
 import { toUpperCaseByFirst } from '@/utils/business'
+import { ElMessage } from 'element-plus'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -70,6 +71,33 @@ const systemModule: Module<ISystemState, IRootState> = {
 
       commit(`change${toUpperCaseByFirst(pageName)}List`, list)
       commit(`change${toUpperCaseByFirst(pageName)}Count`, totalCount)
+    },
+
+    async deletePageDataAction({ dispatch }, payload: any) {
+      // 1.获取pageName和id
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      // 2.调用删除
+      const { data } = await deletePageDataById(pageUrl)
+      if (data === '删除角色成功~') {
+        ElMessage({
+          type: 'success',
+          message: '删除成功！'
+        })
+      } else {
+        ElMessage({
+          type: 'error',
+          message: data
+        })
+      }
+      // 3.重新请求数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
 }
