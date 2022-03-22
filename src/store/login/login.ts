@@ -45,7 +45,6 @@ const loginMoudle: Module<ILoginState, IRootState> = {
 
       // 获取用户按钮权限
       const permissions = mapMenusToPermission(userMenus)
-      console.log(permissions)
       state.permissions = permissions
     }
   },

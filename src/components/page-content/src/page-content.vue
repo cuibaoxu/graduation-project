@@ -14,7 +14,7 @@
     >
       <!-- header中的插槽 -->
       <template #header-handler>
-        <el-button v-if="isCreate" type="primary">新建</el-button>
+        <el-button v-if="isCreate" type="primary" @click="handleBtnClick"> 新建 </el-button>
         <!-- <el-button type="primary" icon="Refresh"></el-button> -->
       </template>
       <!-- 列中插槽 -->
@@ -26,7 +26,7 @@
       </template>
       <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" type="text" icon="Edit">编辑</el-button>
+          <el-button v-if="isUpdate" type="text" icon="Edit" @click="handleBtnClick(scope.row)">编辑</el-button>
           <el-button v-if="isDelete" type="text" icon="Delete" @click="handleDeleteClick(scope.row)">删除</el-button>
         </div>
       </template>
@@ -65,7 +65,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['handleClick'],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 0.获取操作权限
@@ -124,6 +125,11 @@ export default defineComponent({
         })
     }
 
+    // 6.新增/编辑
+    const handleBtnClick = (item?: any) => {
+      emit('handleClick', item)
+    }
+
     return {
       dataList,
       timeFormat,
@@ -134,7 +140,8 @@ export default defineComponent({
       isCreate,
       isDelete,
       isUpdate,
-      handleDeleteClick
+      handleDeleteClick,
+      handleBtnClick
     }
   }
 })
