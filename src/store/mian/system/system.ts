@@ -6,7 +6,7 @@
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
 import { ISystemState } from './type'
-import { getPageListData, deletePageDataById } from '@/service/main/system/system'
+import { getPageListData, deletePageDataById, createPageData, editPageData } from '@/service/main/system/system'
 import { toUpperCaseByFirst } from '@/utils/business'
 import { ElMessage } from 'element-plus'
 
@@ -59,6 +59,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     }
   },
   actions: {
+    // 查
     async getPageListAction({ commit }, { pageName, queryInfo }: any) {
       // 1. 获取url
       const pageUrl = `/${pageName}/list`
@@ -72,14 +73,14 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`change${toUpperCaseByFirst(pageName)}List`, list)
       commit(`change${toUpperCaseByFirst(pageName)}Count`, totalCount)
     },
-
+    // 删
     async deletePageDataAction({ dispatch }, payload: any) {
       // 1.获取pageName和id
       const { pageName, id } = payload
       const pageUrl = `/${pageName}/${id}`
       // 2.调用删除
       const { data } = await deletePageDataById(pageUrl)
-      if (data === '删除角色成功~') {
+      if (data === '删除角色成功~' || data === '删除用户成功~') {
         ElMessage({
           type: 'success',
           message: '删除成功！'
@@ -91,6 +92,58 @@ const systemModule: Module<ISystemState, IRootState> = {
         })
       }
       // 3.重新请求数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+    // 增
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 1.创建数据的请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      const { data } = await createPageData(pageUrl, newData)
+      if (data === '创建用户成功~' || data === '创建角色成功~') {
+        ElMessage({
+          type: 'success',
+          message: '创建成功！'
+        })
+      } else {
+        ElMessage({
+          type: 'error',
+          message: data
+        })
+      }
+      // 2.请求最新的数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+    // 改
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1.编辑数据的请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      const { data } = await editPageData(pageUrl, editData)
+      if (data === '修改用户成功~' || data === '修改角色成功~') {
+        ElMessage({
+          type: 'success',
+          message: '修改成功！'
+        })
+      } else {
+        ElMessage({
+          type: 'error',
+          message: data
+        })
+      }
+      // 2.请求最新的数据
       dispatch('getPageListAction', {
         pageName,
         queryInfo: {
