@@ -12,20 +12,20 @@
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.label" :rules="item.rules" :style="itemStyle">
+            <el-form-item v-if="!item.isHidden" :label="item.label" :rules="item.rules" :style="itemStyle">
               <!-- 判断输入框 -->
               <template v-if="item.type === 'input' || item.type === 'password'">
                 <el-input
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  :model-value="modelValue[`${item.field}`]"
+                  :model-value="modelValue[item.field]"
                   @update:modelValue="handleValueChange($event, item.field)"
                 ></el-input>
               </template>
               <!-- 判断下拉框 -->
               <template v-else-if="item.type === 'select'">
                 <el-select
-                  :model-value="modelValue[`${item.field}`]"
+                  :model-value="modelValue[item.field]"
                   @update:modelValue="handleValueChange($event, item.field)"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
@@ -34,10 +34,16 @@
                   </el-option>
                 </el-select>
               </template>
+              <!-- 单选框 -->
+              <template v-else-if="item.type === 'radio'">
+                <el-radio-group :model-value="modelValue[item.field]" @update:modelValue="handleValueChange($event, item.field)">
+                  <el-radio v-for="option in item.options" :key="option.value" :label="option.value">{{ option.label }}</el-radio>
+                </el-radio-group>
+              </template>
               <!-- 判断时间选择器 -->
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
-                  :model-value="modelValue[`${item.field}`]"
+                  :model-value="modelValue[item.field]"
                   @update:modelValue="handleValueChange($event, item.field)"
                   style="width: 100%"
                   v-bind="item.otherOptions"
@@ -55,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, computed } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { IFormItem } from '../types'
 
 export default defineComponent({
@@ -103,6 +109,7 @@ export default defineComponent({
     //     deep: true
     //   }
     // )
+
     const handleValueChange = (value: any, field: string) => {
       emit('update:modelValue', { ...props.modelValue, [field]: value })
     }
