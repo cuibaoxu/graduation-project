@@ -1,13 +1,14 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 15:17:33
- * @LastEditTime: 2022-03-23 11:08:37
+ * @LastEditTime: 2022-03-23 12:47:51
  * @Description: vuex
  */
 import { createStore, Store, useStore as userVuexStore } from 'vuex'
 
 import login from './login/login'
 import system from './mian/system/system'
+import dashboard from './mian/analysis/dashboard'
 
 import { getPageListData } from '@/service/main/system/system'
 
@@ -57,7 +58,8 @@ const store = createStore<IRootState>({
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 
