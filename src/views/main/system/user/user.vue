@@ -12,7 +12,7 @@
       </template>
     </page-table>
     <!-- 增加/编辑弹出框 -->
-    <page-modal :defaultInfo="defaultInfo" ref="pageModalRef" :modalConfig="modalConfigRef"></page-modal>
+    <page-modal :defaultInfo="defaultInfo" ref="pageModalRef" :modalConfig="modalConfigRef" pageName="users"></page-modal>
   </div>
 </template>
 

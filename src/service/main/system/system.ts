@@ -20,3 +20,27 @@ export const deletePageDataById = (url: string) => {
     url: url
   })
 }
+
+// 新增数据
+export const createPageData = (url: string, newData: any) => {
+  return bxRequest.post<IDataType>({
+    url: url,
+    data: newData
+  })
+}
+
+// 新增数据
+export const editPageData = (url: string, editData: any) => {
+  return bxRequest.patch<IDataType>({
+    url: url,
+    data: editData
+  })
+}
+
+// 查询单条数据
+// export const editPageData = (url: string, editData: any) => {
+//   return bxRequest.patch<IDataType>({
+//     url: url,
+//     data: editData
+//   })
+// }

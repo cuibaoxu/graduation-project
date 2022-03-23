@@ -5,6 +5,9 @@
  */
 
 import dayjs from 'dayjs'
+// import utc from 'dayjs/plugin/utc'
+
+// dayjs.extend(utc)
 
 /**
  * 修改接收的后台图标传参格式

@@ -31,7 +31,7 @@
             <el-dropdown-item :icon="'UserFilled'">用户信息</el-dropdown-item>
             <el-dropdown-item :icon="'Switch'">切换身份</el-dropdown-item>
             <el-dropdown-item :icon="'Key'">修改密码</el-dropdown-item>
-            <el-dropdown-item :icon="'RefreshRight'" divided>退出登录</el-dropdown-item>
+            <el-dropdown-item :icon="'RefreshRight'" @click="handleExitClick" divided>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -45,6 +45,9 @@ import { useStore } from '@/store'
 import BxBreabCrumb from '@/base-ui/breadcrumb'
 import { pathMapBreadcrumbs } from '@/utils/map-menus'
 import { useRoute } from 'vue-router'
+
+import { useRouter } from 'vue-router'
+import localCache from '@/utils/cache'
 
 export default defineComponent({
   emits: ['foldChange'],
@@ -69,11 +72,18 @@ export default defineComponent({
       return pathMapBreadcrumbs(userMenus, currentPath)
     })
 
+    const router = useRouter()
+    const handleExitClick = () => {
+      localCache.deleteCache('token')
+      router.push('/main')
+    }
+
     return {
       handleFoldClick,
       isFold,
       name,
-      breadcrumbs
+      breadcrumbs,
+      handleExitClick
     }
   }
 })
