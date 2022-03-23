@@ -1,0 +1,16 @@
+/*
+ * @Author: cuibx
+ * @Date: 2022-03-23 16:33:17
+ * @Description: Do not edit
+ */
+export const contentTableConfig = {
+  title: '类别列表',
+  columns: [
+    { prop: 'name', label: '角色名称', minWidth: '120' },
+    { prop: 'createAt', label: '创建时间', minWidth: '250', slotName: 'createAt' },
+    { prop: 'updateAt', label: '更新时间', minWidth: '250', slotName: 'updateAt' },
+    { label: '操作', minWidth: '120', slotName: 'handler' }
+  ],
+  showIndexColumn: true,
+  showSelectColumn: true
+}

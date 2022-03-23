@@ -21,7 +21,11 @@ const systemModule: Module<ISystemState, IRootState> = {
       goodsList: [],
       goodsCount: 0,
       menuList: [],
-      menuCount: 0
+      menuCount: 0,
+      categoryList: [],
+      categoryCount: 0,
+      departmentList: [],
+      departmentCount: 0
     }
   },
   mutations: {
@@ -48,6 +52,18 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeMenuCount(state, menuCount: number) {
       state.menuCount = menuCount
+    },
+    changeCategoryCount(state, totalCount: number) {
+      state.categoryCount = totalCount
+    },
+    changeCategoryList(state, roleList: any) {
+      state.categoryList = roleList
+    },
+    changeDepartmentCount(state, totalCount: number) {
+      state.departmentCount = totalCount
+    },
+    changeDepartmentList(state, departmentList: any) {
+      state.departmentList = departmentList
     }
   },
   getters: {

@@ -64,9 +64,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.header {
-  color: red;
-}
 .handle-btns {
   text-align: right;
   padding: 0 50px 20px 0;
