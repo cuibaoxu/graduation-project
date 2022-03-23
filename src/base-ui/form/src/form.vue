@@ -44,8 +44,14 @@
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
                   :model-value="modelValue[item.field]"
-                  @update:modelValue="handleValueChange($event, item.field)"
+                  @update:modelValue="
+                    handleValueChange(
+                      $event.map((item) => timeFormat(item, 'YYYY-MM-DD')),
+                      item.field
+                    )
+                  "
                   style="width: 100%"
+                  format="YYYY-MM-DD"
                   v-bind="item.otherOptions"
                 ></el-date-picker>
               </template>
@@ -61,8 +67,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { IFormItem } from '../types'
+import { timeFormat } from '@/utils/business'
 
 export default defineComponent({
   name: 'bxForm',
@@ -114,7 +121,8 @@ export default defineComponent({
       emit('update:modelValue', { ...props.modelValue, [field]: value })
     }
     return {
-      handleValueChange
+      handleValueChange,
+      timeFormat
     }
   }
 })

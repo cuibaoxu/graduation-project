@@ -132,7 +132,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       const { pageName, editData, id } = payload
       const pageUrl = `/${pageName}/${id}`
       const { data } = await editPageData(pageUrl, editData)
-      if (data === '修改用户成功~' || data === '修改角色成功~') {
+      if (data === '修改用户成功~' || data === '更新角色成功~') {
         ElMessage({
           type: 'success',
           message: '修改成功！'

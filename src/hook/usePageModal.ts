@@ -6,7 +6,7 @@
 import { ref } from 'vue'
 import PageModal from '@/components/page-modal'
 
-type CallbackFn = (isHidden: boolean) => void
+type CallbackFn = (isHidden: boolean, item?: any) => void
 
 export const usePageModal = (callBack?: CallbackFn) => {
   const pageModalRef = ref<InstanceType<typeof PageModal>>()
@@ -18,7 +18,7 @@ export const usePageModal = (callBack?: CallbackFn) => {
       pageModalRef.value.dialogVisible = true
       if (row.id) {
         defaultInfo.value = { ...row }
-        callBack && callBack(true)
+        callBack && callBack(true, row)
       } else {
         defaultInfo.value = {}
         callBack && callBack(false)

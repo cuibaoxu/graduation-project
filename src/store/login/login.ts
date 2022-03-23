@@ -50,13 +50,16 @@ const loginMoudle: Module<ILoginState, IRootState> = {
   },
   getters: {},
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       try {
         // 1.实现登录逻辑
         const loginResult = await accountLoginRequest(payload)
         const { id, token } = loginResult.data
         commit('changeToken', token)
         localCache.setCache('token', token)
+
+        // 发送初始化请求
+        dispatch('getInitialDataAction', null, { root: true })
 
         // 2.请求用户信息
         const { data } = await requestUserInfoById(id)
@@ -72,13 +75,15 @@ const loginMoudle: Module<ILoginState, IRootState> = {
         // 4.跳转到首页
         router.push('/main')
       } catch (err: any) {
-        ElMessage.error(err)
+        ElMessage.error('账号或密码错误！')
       }
     },
     // 免登录时将localstorang里的数据写入到vuex里
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')
       token && commit('changeToken', token)
+
+      dispatch('getInitialDataAction', null, { root: true })
 
       const userInfo = localCache.getCache('userInfo')
       userInfo && commit('changeUserInfo', userInfo)
