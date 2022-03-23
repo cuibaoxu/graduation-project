@@ -7,7 +7,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="" />
-      <span v-show="!collapse" class="title">Vue3+TS</span>
+      <span v-show="!collapse" class="title">电商公司后台管理系统</span>
     </div>
 
     <el-menu
@@ -113,7 +113,7 @@ export default defineComponent({
     }
 
     .title {
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 700;
       color: white;
     }
