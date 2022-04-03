@@ -17,8 +17,8 @@ export const contentTableConfig = {
     { prop: 'saleCount', label: '销量（件）', minWidth: '100' },
     { prop: 'favorCount', label: '收藏（件）', minWidth: '100' },
     { prop: 'address', label: '生产地', minWidth: '80' },
-    { prop: 'createAt', label: '创建时间', minWidth: '220', slotName: 'createAt' },
-    { prop: 'updateAt', label: '更新时间', minWidth: '220', slotName: 'updateAt' },
+    // { prop: 'createAt', label: '创建时间', minWidth: '220', slotName: 'createAt' },
+    // { prop: 'updateAt', label: '更新时间', minWidth: '220', slotName: 'updateAt' },
     { label: '操作', minWidth: '120', slotName: 'handler' }
   ],
   showIndexColumn: true,

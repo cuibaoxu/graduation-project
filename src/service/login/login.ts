@@ -10,8 +10,8 @@ import { IDataType } from '../types'
 
 enum LoginAPI {
   accountLogin = '/login',
-  LoginUserInfo = '/users/', // 用法: /users/1
-  UserMenus = '/role/' // 用法: role/1/menu
+  LoginUserInfo = '/users', // 用法: /users/1
+  UserMenus = '/role/menu' // 用法: role/1/menu
 }
 
 /**
@@ -31,7 +31,7 @@ export const accountLoginRequest = (account: IAccount) => {
  */
 export const requestUserInfoById = (id: number) => {
   return bxRequest.get<any>({
-    url: `${LoginAPI.LoginUserInfo}${id}`,
+    url: `${LoginAPI.LoginUserInfo}?id=${id}`,
     showLoading: false
   })
 }
@@ -42,7 +42,7 @@ export const requestUserInfoById = (id: number) => {
  */
 export const requestUserMenusByRoleId = (id: number) => {
   return bxRequest.get<IDataType>({
-    url: `${LoginAPI.UserMenus}${id}/menu`,
+    url: `${LoginAPI.UserMenus}?id=${id}`,
     showLoading: false
   })
 }

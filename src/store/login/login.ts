@@ -51,32 +51,32 @@ const loginMoudle: Module<ILoginState, IRootState> = {
   getters: {},
   actions: {
     async accountLoginAction({ commit, dispatch }, payload: IAccount) {
-      try {
-        // 1.实现登录逻辑
-        const loginResult = await accountLoginRequest(payload)
-        const { id, token } = loginResult.data
-        commit('changeToken', token)
-        localCache.setCache('token', token)
+      // try {
+      // 1.实现登录逻辑
+      const loginResult = await accountLoginRequest(payload)
+      const { id, token } = loginResult.data
+      commit('changeToken', token)
+      localCache.setCache('token', token)
 
-        // 发送初始化请求
-        dispatch('getInitialDataAction', null, { root: true })
+      // 发送初始化请求
+      dispatch('getInitialDataAction', null, { root: true })
 
-        // 2.请求用户信息
-        const { data } = await requestUserInfoById(id)
-        commit('changeUserInfo', data)
-        localCache.setCache('userInfo', data)
+      // 2.请求用户信息
+      const { data } = await requestUserInfoById(id)
+      commit('changeUserInfo', data)
+      localCache.setCache('userInfo', data)
 
-        // 3.请求用户菜单
-        const userMenusResult = await requestUserMenusByRoleId(data.role.id)
-        const userMenus = userMenusResult.data
-        commit('changeUserMenus', userMenus)
-        localCache.setCache('userMenus', userMenus)
+      // // 3.请求用户菜单
+      const userMenusResult = await requestUserMenusByRoleId(id)
+      const userMenus = userMenusResult.data
+      commit('changeUserMenus', userMenus)
+      localCache.setCache('userMenus', userMenus)
 
-        // 4.跳转到首页
-        router.push('/main')
-      } catch (err: any) {
-        ElMessage.error('账号或密码错误！')
-      }
+      // 4.跳转到首页
+      router.push('/main')
+      // } catch (err: any) {
+      //   ElMessage.error('账号或密码错误！')
+      // }
     },
     // 免登录时将localstorang里的数据写入到vuex里
     loadLocalLogin({ commit, dispatch }) {

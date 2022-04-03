@@ -1,13 +1,13 @@
 <template>
   <div class="dashboard">
     <!-- 1.顶部数据统计 -->
-    <!-- <el-row :gutter="10">
+    <el-row :gutter="10">
       <template v-for="item in topPanelData" :key="item.title">
         <el-col :md="12" :lg="6" :xl="6">
           <statistical-panel :panelData="item" />
         </el-col>
       </template>
-    </el-row> -->
+    </el-row>
 
     <!-- 2.中间图标 -->
     <el-row :gutter="10">
@@ -48,7 +48,7 @@
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store'
 
-// import StatisticalPanel from '@/components/statistical-panel'
+import StatisticalPanel from '@/components/statistical-panel'
 import BxCard from '@/base-ui/card'
 import { PieEchart, MapEchart, RoseEchart, LineEchart, BarEchart } from '@/components/page-charts'
 
@@ -57,10 +57,11 @@ export default defineComponent({
   components: {
     BxCard,
     PieEchart,
-    // MapEchart,
+    MapEchart,
     RoseEchart,
     LineEchart,
-    BarEchart
+    BarEchart,
+    StatisticalPanel
   },
   setup() {
     // 1.发起数据统计的网络请求
@@ -68,7 +69,7 @@ export default defineComponent({
     store.dispatch('dashboard/getDashboardDataAction')
 
     // // 2.获取顶部PanelData
-    // const topPanelData = computed(() => store.state.analysis.topPanelDatas)
+    const topPanelData = computed(() => store.state.dashboard.topPanelDatas)
     const categoryGoodsCount = computed(() => {
       return store.state.dashboard.categoryGoodsCount.map((item: any) => ({ value: item.goodsCount, name: item.name }))
     })
@@ -104,7 +105,7 @@ export default defineComponent({
     })
 
     return {
-      // topPanelData,
+      topPanelData,
       categoryGoodsCount,
       // goodsSaleTop10,
       categoryGoodsSale,

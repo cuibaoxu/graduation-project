@@ -44,6 +44,7 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     LineEchart: typeof import('./src/components/page-charts/src/line-echart.vue')['default']
     MapEchart: typeof import('./src/components/page-charts/src/map-echart.vue')['default']
@@ -54,6 +55,7 @@ declare module 'vue' {
     PageSearch: typeof import('./src/components/page-search/src/page-search.vue')['default']
     PieEchart: typeof import('./src/components/page-charts/src/pie-echart.vue')['default']
     RoseEchart: typeof import('./src/components/page-charts/src/rose-echart.vue')['default']
+    StatisticalPanel: typeof import('./src/components/statistical-panel/src/statistical-panel.vue')['default']
   }
 }
 

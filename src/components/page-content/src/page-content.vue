@@ -81,7 +81,7 @@ export default defineComponent({
 
     // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
-      if (!isQuery) return
+      // if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -93,6 +93,10 @@ export default defineComponent({
     }
 
     getPageData()
+
+    const selectionChange = () => {
+      console.log(111)
+    }
 
     // 3.从vuex获取数据
     const dataList = computed(() => store.getters['system/pageListData'](props.pageName))
@@ -141,7 +145,8 @@ export default defineComponent({
       isDelete,
       isUpdate,
       handleDeleteClick,
-      handleBtnClick
+      handleBtnClick,
+      selectionChange
     }
   }
 })
