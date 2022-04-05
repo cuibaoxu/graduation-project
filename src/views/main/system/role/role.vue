@@ -44,7 +44,9 @@ export default defineComponent({
   setup() {
     // 1.处理pageModal的hook函数
     const elTreeRef = ref<InstanceType<typeof ElTree>>()
-    const editCallback = (item1: boolean, item2?: any) => {
+    const editCallback = (readonly: boolean, item2?: any) => {
+      const roleNameItem = modalConfig.formItems?.find((item) => item.field === 'name')
+      roleNameItem!.readonly = readonly
       if (item2) {
         const leafKeys = getMenuChecks(item2.menuList)
         nextTick(() => {

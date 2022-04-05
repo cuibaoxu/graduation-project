@@ -4,6 +4,8 @@
  * @Description: 用户数据类型
  */
 export interface ISystemState {
+  currentPage: number
+  pageSize: number
   usersList: any[]
   usersCount: number
   roleList: any[]

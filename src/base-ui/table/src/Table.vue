@@ -49,6 +49,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { tableParameter } from '../types'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Table',
@@ -79,7 +80,7 @@ export default defineComponent({
     },
     page: {
       type: Object,
-      default: () => ({ currentPage: 0, pageSize: 10 })
+      default: () => ({ currentPage: 1, pageSize: 10 })
     },
     childrenProps: {
       type: Object,
@@ -92,15 +93,17 @@ export default defineComponent({
   },
   emits: ['selectionChange', 'update:page'],
   setup(props, { emit }) {
+    const store = useStore()
+
     const handleSelectionChange = (value: any) => {
       emit('selectionChange', value)
     }
 
     const handleCurrentChange = (currentPage: number) => {
-      emit('update:page', { ...props.page, currentPage })
+      store.commit('system/changePage', { ...props.page, currentPage })
     }
     const handleSizeChange = (pageSize: number) => {
-      emit('update:page', { ...props.page, pageSize })
+      store.commit('system/changePage', { ...props.page, pageSize })
     }
     return { handleSelectionChange, handleSizeChange, handleCurrentChange }
   }
