@@ -16,6 +16,7 @@
               <!-- 判断输入框 -->
               <template v-if="item.type === 'input' || item.type === 'password'">
                 <el-input
+                  :readonly="item.readonly"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
                   :model-value="modelValue[item.field]"
@@ -25,6 +26,7 @@
               <!-- 判断下拉框 -->
               <template v-else-if="item.type === 'select'">
                 <el-select
+                  :readonly="item.readonly"
                   :model-value="modelValue[item.field]"
                   @update:modelValue="handleValueChange($event, item.field)"
                   :placeholder="item.placeholder"
@@ -36,13 +38,18 @@
               </template>
               <!-- 单选框 -->
               <template v-else-if="item.type === 'radio'">
-                <el-radio-group :model-value="modelValue[item.field]" @update:modelValue="handleValueChange($event, item.field)">
+                <el-radio-group
+                  :readonly="item.readonly"
+                  :model-value="modelValue[item.field]"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                >
                   <el-radio v-for="option in item.options" :key="option.value" :label="option.value">{{ option.label }}</el-radio>
                 </el-radio-group>
               </template>
               <!-- 判断时间选择器 -->
               <template v-else-if="item.type === 'datepicker'">
                 <el-date-picker
+                  :readonly="item.readonly"
                   :model-value="modelValue[item.field]"
                   @update:modelValue="
                     handleValueChange(

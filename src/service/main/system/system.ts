@@ -29,7 +29,7 @@ export const createPageData = (url: string, newData: any) => {
   })
 }
 
-// 新增数据
+// 修改数据
 export const editPageData = (url: string, editData: any) => {
   return bxRequest.patch<IDataType>({
     url: url,

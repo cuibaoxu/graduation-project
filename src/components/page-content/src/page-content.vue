@@ -14,7 +14,7 @@
     >
       <!-- header中的插槽 -->
       <template #header-handler>
-        <el-button v-if="isCreate" type="primary" @click="handleBtnClick"> 新建 </el-button>
+        <el-button v-if="!isCreate" type="primary" @click="handleBtnClick"> 新建 </el-button>
         <!-- <el-button type="primary" icon="Refresh"></el-button> -->
       </template>
       <!-- 列中插槽 -->
@@ -26,8 +26,8 @@
       </template>
       <template #handler="scope">
         <div class="handle-btns">
-          <el-button v-if="isUpdate" type="text" icon="Edit" @click="handleBtnClick(scope.row)">编辑</el-button>
-          <el-button v-if="isDelete" type="text" icon="Delete" @click="handleDeleteClick(scope.row)">删除</el-button>
+          <el-button v-if="!isUpdate" type="text" icon="Edit" @click="handleBtnClick(scope.row)">编辑</el-button>
+          <el-button v-if="!isDelete" type="text" icon="Delete" @click="handleDeleteClick(scope.row)">删除</el-button>
         </div>
       </template>
       <!-- 在page-content中动态插入剩余的插槽 -->
@@ -76,12 +76,22 @@ export default defineComponent({
     const isUpdate = usePermission(props.pageName, 'update')
 
     // 1.双向绑定pageInfo
-    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
-    watch(pageInfo, () => getPageData())
+    const getCurrentPage = computed(() => store.getters['system/getCurrentPage']())
+    const getPageSize = computed(() => store.getters['system/getPageSize']())
+
+    const pageInfo = ref({ currentPage: 1, pageSize: 10 })
+    watch(getCurrentPage, () => {
+      pageInfo.value = { currentPage: getCurrentPage.value, pageSize: getPageSize.value }
+      getPageData()
+    })
+    watch(getPageSize, () => {
+      pageInfo.value = { currentPage: getCurrentPage.value, pageSize: getPageSize.value }
+      getPageData()
+    })
 
     // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
-      if (!isQuery) return
+      if (isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {

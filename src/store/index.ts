@@ -1,7 +1,7 @@
 /*
  * @Author: cuibx
  * @Date: 2022-02-08 15:17:33
- * @LastEditTime: 2022-03-23 12:47:51
+ * @LastEditTime: 2022-04-04 11:12:33
  * @Description: vuex
  */
 import { createStore, Store, useStore as userVuexStore } from 'vuex'
@@ -32,6 +32,7 @@ const store = createStore<IRootState>({
       state.entireRole = list
     },
     changeEntireMenu(state, list) {
+      console.log(list)
       state.entireMenu = list
     }
   },

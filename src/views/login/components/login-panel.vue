@@ -6,7 +6,7 @@
 
 <template>
   <div class="login-panel">
-    <h1 class="title">后台管理系统</h1>
+    <h1 class="title">基于vue3和TypeScript的电商公司后台管理系统</h1>
     <el-tabs stretch type="border-card" v-model="currentTab">
       <el-tab-pane name="account">
         <template #label>

@@ -4,13 +4,13 @@
  * @Description: user页枚举文件
  */
 const USER_STETUS = {
-  1: '启用',
-  0: '禁用'
+  ENABLE: '启用',
+  DISABLE: '禁用'
 }
 
 const USER_STETUS_ABLE = {
-  1: 'success',
-  0: 'danger'
+  ENABLE: 'success',
+  DISABLE: 'danger'
 }
 
 export { USER_STETUS, USER_STETUS_ABLE }

@@ -8,7 +8,7 @@
     <page-search :formConfig="formConfig" @resetBtnClick="handleResetClick" @queryBtnClick="handleQueryClick" />
     <page-table @handleClick="handleClick" ref="pageContentRef" :contentTableConfig="contentTableConfig" pageName="users">
       <template #enable="scope">
-        <el-button size="small" plain :type="USER_STETUS_ABLE[scope.row.enable]">{{ USER_STETUS[scope.row.enable] }}</el-button>
+        <el-button size="small" plain :type="USER_STETUS_ABLE[scope.row.status]">{{ USER_STETUS[scope.row.status] }}</el-button>
       </template>
     </page-table>
     <!-- 增加/编辑弹出框 -->
@@ -55,8 +55,8 @@ export default defineComponent({
       const departmentItem = modalConfig.formItems.find((item) => item.field === 'departmentId')
       departmentItem!.options = store.state.entireDepartment.map((item) => ({ label: item.name, value: item.id }))
 
-      const roleItem = modalConfig.formItems.find((item) => item.field === 'roleId')
-      roleItem!.options = store.state.entireRole.map((item) => ({ label: item.name, value: item.id }))
+      const roleItem = modalConfig.formItems.find((item) => item.field === 'role_name')
+      roleItem!.options = store.state.entireRole.map((item) => ({ label: item.name, value: item.name }))
       return modalConfig
     })
 

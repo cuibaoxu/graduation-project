@@ -14,6 +14,8 @@ const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
     return {
+      currentPage: 1,
+      pageSize: 10,
       usersList: [],
       usersCount: 0,
       roleList: [],
@@ -64,6 +66,10 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeDepartmentList(state, departmentList: any) {
       state.departmentList = departmentList
+    },
+    changePage(state, payload) {
+      state.currentPage = payload.currentPage
+      state.pageSize = payload.pageSize
     }
   },
   getters: {
@@ -72,6 +78,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     pageListCount(state) {
       return (pageName: string) => state[`${pageName}Count`]
+    },
+    getCurrentPage(state) {
+      return () => state.currentPage
+    },
+    getPageSize(state) {
+      return () => state.pageSize
     }
   },
   actions: {
@@ -90,82 +102,73 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`change${toUpperCaseByFirst(pageName)}Count`, totalCount)
     },
     // 删
-    async deletePageDataAction({ dispatch }, payload: any) {
+    async deletePageDataAction({ commit }, payload: any) {
       // 1.获取pageName和id
       const { pageName, id } = payload
-      const pageUrl = `/${pageName}/${id}`
+      const pageUrl = `/${pageName}?id=${id}`
       // 2.调用删除
-      const { data } = await deletePageDataById(pageUrl)
-      if (data === '删除角色成功~' || data === '删除用户成功~') {
+      try {
+        await deletePageDataById(pageUrl)
         ElMessage({
           type: 'success',
           message: '删除成功！'
         })
-      } else {
+      } catch (error) {
         ElMessage({
           type: 'error',
-          message: data
+          message: '删除失败'
         })
       }
       // 3.重新请求数据
-      dispatch('getPageListAction', {
-        pageName,
-        queryInfo: {
-          offset: 0,
-          size: 10
-        }
+      commit('changePage', {
+        currentPage: 1,
+        pageSize: 10
       })
     },
     // 增
-    async createPageDataAction({ dispatch }, payload: any) {
+    async createPageDataAction({ commit }, payload: any) {
       // 1.创建数据的请求
       const { pageName, newData } = payload
       const pageUrl = `/${pageName}`
-      const { data } = await createPageData(pageUrl, newData)
-      if (data === '创建用户成功~' || data === '创建角色成功~') {
+      try {
+        await createPageData(pageUrl, newData)
         ElMessage({
           type: 'success',
-          message: '创建成功！'
+          message: '创建成功'
         })
-      } else {
+      } catch (err) {
         ElMessage({
           type: 'error',
-          message: data
+          message: '创建失败'
         })
       }
       // 2.请求最新的数据
-      dispatch('getPageListAction', {
-        pageName,
-        queryInfo: {
-          offset: 0,
-          size: 10
-        }
+      commit('changePage', {
+        currentPage: 1,
+        pageSize: 10
       })
     },
     // 改
-    async editPageDataAction({ dispatch }, payload: any) {
+    async editPageDataAction({ commit }, payload: any) {
       // 1.编辑数据的请求
       const { pageName, editData, id } = payload
-      const pageUrl = `/${pageName}/${id}`
-      const { data } = await editPageData(pageUrl, editData)
-      if (data === '修改用户成功~' || data === '更新角色成功~') {
+      const pageUrl = `/${pageName}`
+      try {
+        await editPageData(pageUrl, { id, ...editData })
         ElMessage({
           type: 'success',
           message: '修改成功！'
         })
-      } else {
+      } catch (error) {
         ElMessage({
           type: 'error',
-          message: data
+          message: '修改失败'
         })
       }
       // 2.请求最新的数据
-      dispatch('getPageListAction', {
-        pageName,
-        queryInfo: {
-          offset: 0,
-          size: 10
-        }
+      commit('changePage', {
+        currentPage: 1,
+        pageSize: 10
       })
     }
   }

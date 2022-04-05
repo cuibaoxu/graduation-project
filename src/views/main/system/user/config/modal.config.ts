@@ -8,13 +8,12 @@ import { IForm } from '@/base-ui/form/types/'
 export const modalConfig: IForm = {
   // title: '新建用户',
   formItems: [
-    { field: 'name', type: 'input', label: '用户名', placeholder: '请输入用户名' },
+    { field: 'username', type: 'input', label: '用户名', placeholder: '请输入用户名', rules: [{ required: true }] },
     {
-      field: 'realname',
+      field: 'nickname',
       type: 'input',
-      label: '真实姓名',
-      placeholder: '请输入真实姓名',
-      rules: [{ required: true }]
+      label: '昵称',
+      placeholder: '请输入昵称'
     },
     {
       field: 'password',
@@ -24,18 +23,18 @@ export const modalConfig: IForm = {
       isHidden: true
     },
     {
-      field: 'enable',
+      field: 'status',
       type: 'radio',
       label: '状态',
       placeholder: '请选择是否启用',
       options: [
-        { label: '启用', value: 1 },
-        { label: '禁用', value: 0 }
+        { label: '启用', value: 'ENABLE' },
+        { label: '禁用', value: 'DISABLE' }
       ],
-      rules: [{ required: true }]
+      rules: [{ required: true, message: '请选择状态', trigger: 'change' }]
     },
-    { field: 'cellphone', type: 'input', label: '电话号码', placeholder: '请输入电话号码' },
-    { field: 'roleId', type: 'select', label: '选择角色', placeholder: '请选择角色', options: [] },
+    { field: 'iphone', type: 'input', label: '电话号码', placeholder: '请输入电话号码' },
+    { field: 'role_name', type: 'select', label: '选择角色', placeholder: '请选择角色', options: [] },
     {
       field: 'departmentId',
       type: 'select',
